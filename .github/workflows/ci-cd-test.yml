@@ -49,7 +49,6 @@ jobs:
     - name: Build the Docker Image
       run: |-
         docker build \
-          -f Frontend/Dockerfile \
           --tag "gcr.io/$PROJECT_ID/$IMAGE:latest" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
@@ -61,12 +60,12 @@ jobs:
         
     - name: Create Namespace spidercal-frontend
       run: |-
-        kubectl apply -f Frontend/spidercal-namespace.yml
+        kubectl apply -f spidercal-namespace.yml
         
     - name: Deploy image to kubernetes cluster
       run: |-
-        kubectl apply -f Frontend/deployment.yml 
+        kubectl apply -f deployment.yml 
         
     - name: Expose Deployment to internet
       run: |-
-        kubectl apply -f Frontend/service.yml
+        kubectl apply -f service.yml
